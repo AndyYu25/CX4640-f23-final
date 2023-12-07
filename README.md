@@ -1,6 +1,6 @@
 # Higher-Order Accurate Derivative Approximations
 
-In numerical analysis, higher order accurate derivative approximations are a class of methods that estimate the derivatives of a given function with the values of the function and other information about the function to a high degree of accuracy. 
+In numerical analysis, higher order accurate derivative approximations are a class of methods and algorithms that estimate the derivatives of a given function with the values of the function and other information about the function to a high degree of accuracy. 
 
 ## Introduction
 
@@ -8,37 +8,42 @@ The definition of a derivative is as follows:
 
 $$f'(x) = \lim_{h \to 0 }\frac{f(x + h) - f(x)}{h}$$
 
-Thus, for all derivative approximations, we utilize 
+Derivative approximations aim to evaluate the derivative by utilizing this limit definition for some concrete value of h, known as the step size. Thus, accuracy in differentiation is expressed by degrees of accuracy where the derivative error $|e(h)|$ is bounded by some polynomial $C|h|^n$. If $|e(h)| \leq $C|h|^n$, then the approximation is nth-order accurate [1]. 
 
-Accuracy in differentiation is expressed by degrees of accuracy where the derivative error $|e(h)|$ is bounded by some polynomial $C|h|^n$. If $|e(h)| \leq $C|h|^n$, then the approximation is nth-order accurate [1].
+## Finite Differences
 
-## What your article should contain
+Finite differences evaluate the differences between several points on the function with various forumalations to approximate the derivative, discretizing the function into a finite amount of steps and intervals.
 
-__In your own words.__
+There are three basical low-order finite differences formulas: the forward difference formula, the backward difference formula, and the centered difference formula[2].
 
-* An appropriate explanation of the key points of the topic (see "Audience" below)
+The forward difference formula is as follows:
 
-* Description of methods used to solve the problem
-	* Algorithms you learned! And likely some we didn't have time to go over.
+$$f'(x) \approx \frac{f(x + h) - f(x)}{h}$$
 
-* When the methods fail and when they do well
-	* For example, conditioning can play a role here.
+The forward difference gives an approximation that is 1st-order accurate.
 
-* Examples of edge cases or special cases of the problem. 
-	* For example, solving banded matrices is a "special case" of solving a linear system.
+The backward difference formula is as follows:
 
-* Compact pseudocode for key algorithms in the topic you chose (if appropriate)
+$$f'(x) \approx \frac{f(x) - f(x - h)}{h}$$
 
-* Appropriate paper and book references at the bottom of the document. Use a consistent style (e.g., APA).
+The backward difference gives an approximation that is also 1st-order accurate.
 
-* I encourage you to write an article that is a hybrid between a Wikipedia article (a bit more general audience) and a [Scholarpedia](http://www.scholarpedia.org/article/Main_Page) article (a bit more technical). 
-For example, try:
-	* Including some history and example applications in your article (Wikipedia-style) 
-	* Including some pseudocode and some degree of nuance via equations (Scholarpedia-style)
-	* Here are some such examples 
-		* http://www.scholarpedia.org/article/Galerkin_methods
-		* http://www.scholarpedia.org/article/Meshless_methods_for_PDEs
-		* https://en.wikipedia.org/wiki/Euler_method
+The centered difference formula is as follows:
+
+$$f'(x) \approx \frac{f(x + h) - f(x - h)}{2h}$$
+
+The centered difference formula gives an approximation that is 2nd-order accurate.
+
+Higher order finite difference schemes than forward, backward, and centered differences exist and can be derived by evaluating additional points on the function, at the cost of increased computational complexity per step. However, the higher order accuracy may also mean a larger step size and be utilized while not increasing error, so utilizing higher order finite difference approximations may or may not increase overall computational complexity, depending on the situation [3].
+
+#### Richardson Extrapolation
+
+The Richardson extrapolation can utilize finite difference schemes to extrapolate values for a step size of zero. 
+
+Let there be a finite difference approximation for step size h $F(h)$ such that $F(h) = a_0 + a_1h^p + O(h^r)$, where $a_0$ and $a_1$ are unknown quantities, and $p < r$. From this finite difference approximation, as h approaches zero, $F(h) = a_0$. Thus, $F(0) = a_0$, meaning that $a_0$ is a reasonable approximation for $F(0)$.
+
+As there are two unknowns, $a_0$ and $a_1$, a second equation is need to construct a system. Therefore, the same finite difference approximation is evaluated, for step size $h/q$, where q is a positive integer. This results in the equation $F(h/q) = a_0 + a_1(h/q)^p + O(h^r) = a_0 + a_1q^{-p}h^p + O(h^r)$
+
 
 ## What your article should not contain
 
@@ -149,9 +154,9 @@ From the `topics.md` document:
 
 ## References
 
-1. [References](https://drlvk.github.io/nm/section-differentiation-intro.html)
-2. Can
-3. Go
+1. https://drlvk.github.io/nm/section-differentiation-intro.html
+2. https://e6.ijs.si/~roman/files/tmp/M.Heath-SComputing/scientific-computing-michael-t-heath.pdf
+3. Ibid.
 4. Here
 5. Like
 6. This
