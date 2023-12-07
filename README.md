@@ -40,10 +40,15 @@ Higher order finite difference schemes than forward, backward, and centered diff
 
 The Richardson extrapolation can utilize finite difference schemes to extrapolate values for a step size of zero. 
 
-Let there be a finite difference approximation for step size h $F(h)$ such that $F(h) = a_0 + a_1h^p + O(h^r)$, where $a_0$ and $a_1$ are unknown quantities, and $p < r$. From this finite difference approximation, as h approaches zero, $F(h) = a_0$. Thus, $F(0) = a_0$, meaning that $a_0$ is a reasonable approximation for $F(0)$.
+Let there be a finite difference approximation for step size h $F(h)$ such that $F(h) = a_0 + O(h^p) =  a_0 + a_1h^p + O(h^r)$, where $a_0$ and $a_1$ are unknown quantities, and $p < r$. From this finite difference approximation, as h approaches zero, $F(h) = a_0$. Thus, $F(0) = a_0$, meaning that $a_0$ is a reasonable approximation for $F(0)$.
 
-As there are two unknowns, $a_0$ and $a_1$, a second equation is need to construct a system. Therefore, the same finite difference approximation is evaluated, for step size $h/q$, where q is a positive integer. This results in the equation $F(h/q) = a_0 + a_1(h/q)^p + O(h^r) = a_0 + a_1q^{-p}h^p + O(h^r)$
+As there are two unknowns, $a_0$ and $a_1$, a second equation is need to construct a system. Therefore, the same finite difference approximation is evaluated, for step size $h/q$, where q is a positive integer. This results in the equation $F(h/q) = a_0 + a_1(h/q)^p + O(h^r) = a_0 + a_1q^{-p}h^p + O(h^r)$.
 
+By solving the linear system for $a_0$, we obtain the following formula[4]:
+
+$$F(0) = a_0 = F(h) + \frac{F(h) - F(h/q)}{q^{-p} - 1} + O(h^r)$$
+
+The original approximation $F(h)$ had an order of accuracy of p, while the Richardson extrapolation has an order of accuracy of r, thus resulting in a higher order of accuracy. Therefore, utilizing the Richardson extrapolation can result in higher order approximaitons from lower-order finite differences. 
 
 ## What your article should not contain
 
@@ -157,7 +162,7 @@ From the `topics.md` document:
 1. https://drlvk.github.io/nm/section-differentiation-intro.html
 2. https://e6.ijs.si/~roman/files/tmp/M.Heath-SComputing/scientific-computing-michael-t-heath.pdf
 3. Ibid.
-4. Here
+4. Ibid.
 5. Like
 6. This
 7. Bryngelson, S. H., & Freund, J. B. (2018). Global stability of flowing red blood cell trains. Physical Review Fluids, 3(7). https://doi.org/10.1103/physrevfluids.3.073101 
