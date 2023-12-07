@@ -36,7 +36,7 @@ The centered difference formula gives an approximation that is 2nd-order accurat
 
 Higher order finite difference schemes than forward, backward, and centered differences exist and can be derived by evaluating additional points on the function, at the cost of increased computational complexity per step. However, the higher order accuracy may also mean a larger step size and be utilized while not increasing error, so utilizing higher order finite difference approximations may or may not increase overall computational complexity, depending on the situation [3].
 
-#### Richardson Extrapolation
+### Richardson Extrapolation
 
 The Richardson extrapolation can utilize finite difference schemes to extrapolate values for a step size of zero. 
 
