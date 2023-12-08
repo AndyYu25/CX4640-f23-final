@@ -74,7 +74,7 @@ THe primary advantage WENO/ENO schemes have over conventional finite difference 
 
 
 ## Padé Approximations
-
+ $\sum_{n=1}^{\infty} 2^{-n} = 1$
 Padé approximations are rational functions that are a ratio of polynomials such that their power series agrees agrees with the power series of the function they are agreeing with. Given a rational function $f$, the Padé approximation of $f$ is following:
 $$[p/q]_f(x) = N(x)/D(x)$$
 
