@@ -88,14 +88,10 @@ Let the Taylor expansion of $f$ be $T(x) = \sum^{p + q}_{i = 0} c_{i} * x^i$. As
 
 $$a_0 = c_0b_0$$
 $$a_1 = c_1b_0 + c_0b_1$$
-.
-.
-.
+...
 $$a_p = c_pb_0 + c_{p - 1}b_1 + ... + c_{p-q}b_q$$
 $$0 = c_{p+1}b_0 + c_pb_1 + ... + c_{p-q+1}b_q$$
-.
-.
-.
+...
 $$0 = c_{p+q}b_0 + c_{p + q - 1}b_1 + ... + c_pb_q$$
 Thus, the Pade approximant can be derived from the Taylor expansion by first solving for the coefficients of $D(x)$ and then solving for the coefficients of $N(x)$ using the above linear system.
 
