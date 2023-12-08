@@ -21,7 +21,7 @@ Derivative approximations aim to evaluate the derivative by utilizing this limit
 
 Finite differences evaluate the differences between several points on the function with various forumalations to approximate the derivative, discretizing the function into a finite amount of steps and intervals.
 
-There are three basical low-order finite differences formulas: the forward difference formula, the backward difference formula, and the centered difference formula[2].
+There are three basic low-order finite differences formulas: the forward difference formula, the backward difference formula, and the centered difference formula[2].
 
 The forward difference formula is as follows:
 
@@ -71,8 +71,6 @@ Instead of discarding all but the smoothest interpolation, Weighted Essentially 
 
 THe primary advantage WENO/ENO schemes have over conventional finite difference methods is that WENO/ENO schemes will choose interpolants such that the function will not oscillate wildly around discontinuities. This makes the scheme advantageous for scenarios where discontinuities occur frequently, such as with fluid dynamics and traffic simulation.
 
-
-
 ## Padé Approximations
 
 Padé approximations are rational functions that are a ratio of polynomials such that their power series agrees agrees with the power series of the function they are agreeing with. Given a rational function $f$, the Padé approximation of $f$ is following:
@@ -84,7 +82,7 @@ $$N(x) = \sum^{p}_{i = 0}a_i * x^i$$
 
 $$D(x) = 1 + \sum^{q}_{i = 0}b_i * x^i$$
 
-Let the Taylor expansion of $f$ be $T(x) = \displaystyle\sum_{i = 0}^{p + q} c_{i} * x^i $. As the Taylor expansion and the Pade approximation are equal, $T(x) = N(x)/D(x)$,  which can be rewritten as $D(x)T(x) = N(x)$ and then expanded as $(1 + \displaystyle\sum_{i = 0}^{q} b_i * x^i) * \displaystyle\sum{i = 0}^{p + q} c_{i} * x^i = \displaystyle\sum^{p}_{i = 0}a_i * x^i$. By setting the coefficients on each side of the equation equal to each other, we get the following system of equations [6]:
+Let the Taylor expansion of $f$ be $T(x) = \displaystyle\sum_{i = 0}^{p + q} c_{i} * x^i $. As the Taylor expansion and the Pade approximation are equal, $T(x) = N(x)/D(x)$,  which can be rewritten as $D(x)T(x) = N(x)$ and then expanded as $(1 + \displaystyle\sum_{i = 0}^{q} b_i * x^i) * \displaystyle\sum_{i = 0}^{p + q} c_{i} * x^i = \displaystyle\sum^{p}_{i = 0}a_i * x^i$. By setting the coefficients on each side of the equation equal to each other, we get the following system of equations [6]:
 
 $$a_0 = c_0b_0$$
 $$a_1 = c_1b_0 + c_0b_1$$
@@ -93,15 +91,21 @@ $$a_p = c_pb_0 + c_{p - 1}b_1 + ... + c_{p-q}b_q$$
 $$0 = c_{p+1}b_0 + c_pb_1 + ... + c_{p-q+1}b_q$$
 $$...$$
 $$0 = c_{p+q}b_0 + c_{p + q - 1}b_1 + ... + c_pb_q$$
-Thus, the Pade approximant can be derived from the Taylor expansion by first solving for the coefficients of $D(x)$ and then solving for the coefficients of $N(x)$ using the above linear system.
+
+Thus, the Padé approximant can be derived from the Taylor expansion by first solving for the coefficients of $D(x)$ and then solving for the coefficients of $N(x)$ using the above linear system. The Padé approximant can be used in finite difference methods much like the Taylor series as a polynomial approximation of a rational function. 
 
 ## Spectral Methods
 
-Spectral methods are a class of methods developed to solve mixed initial—boundary value problems that represent the solution as a linear combination of selected basis functions [https://apps.dtic.mil/sti/pdfs/ADA056922.pdf, page 1]. The basis functions are either sinusoidal functions for or
+Spectral methods are a class of methods developed to solve mixed initial—boundary value problems that represent the solution as a linear combination of selected basis functions [https://apps.dtic.mil/sti/pdfs/ADA056922.pdf, page 1]. 
+
+
 
 
 
 Spectral methods converge exponentially, so they have a higher order of accuracy compared to finite difference methods [https://apps.dtic.mil/sti/pdfs/ADA056922.pdf, page 2].
+
+## Finite Element Methods
+
 
 
 ## What your article should not contain
