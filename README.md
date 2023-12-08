@@ -1,3 +1,10 @@
+```
+---
+Name: Andy Yu
+Topic: 35
+Title: Higher-Order Accurate Derivative Approximations
+---
+```
 # Higher-Order Accurate Derivative Approximations
 
 In numerical analysis, higher order accurate derivative approximations are a class of methods and algorithms that estimate the derivatives of a given function with the values of the function and other information about the function to a high degree of accuracy. 
@@ -75,9 +82,14 @@ such that the degree of N $\leq p$, the degree of D $\leq Q$, and $N(x) - f(x)D(
 
 
 
-
-
 ## Spectral Methods
+
+Spectral methods are a class of methods developed to solve mixed initial—boundary value problems that represent the solution as a linear combination of selected basis functions [https://apps.dtic.mil/sti/pdfs/ADA056922.pdf, page 1]. The basis functions are either sinusoidal functions for or
+
+
+
+Spectral methods converge exponentially, so they have a higher order of accuracy compared to finite difference methods [https://apps.dtic.mil/sti/pdfs/ADA056922.pdf, page 2].
+
 
 ## What your article should not contain
 
@@ -97,14 +109,6 @@ Submit your document formatted as a `.zip` (if you included images) or `.md` (if
 
 __Be sure to create a (private) repository on your own Github profile to make sure that your article shows up as you intended!__
 
-Include the following header at the top of your `.md` file:
-```
----
-Name: Your Name
-Topic: [Topic Number from topics.md]
-Title: Title of your article
-----
-```
 
 ## Formatting 
 
