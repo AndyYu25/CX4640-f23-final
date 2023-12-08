@@ -15,6 +15,9 @@ In numerical analysis, higher order accurate derivative approximations are a cla
 3. [Richardson Extrapolation](#richardson-extrapolation)
 4. [Essentially Non-Oscillatory Methods](#Essentially-Non-Oscillatory-Methods)
 5. [Weighted Essentially Non-Oscillatory Methods](#Weighted-Essentially-Non-Oscillatory-Methods)
+6. [Padé Approximations](#Padé-Approximations)
+7. [Spectral Methods](#Spectral-Methods)
+8. [References](#references)
 
 
 ## Background 
@@ -107,7 +110,7 @@ $$N(x) = \sum^{p}_{i = 0}a_i * x^i$$
 
 $$D(x) = 1 + \sum^{q}_{i = 0}b_i * x^i$$
 
-Let the Taylor expansion of $f$ be $T(x) = \displaystyle\sum_{i = 0}^{p + q} c_{i} * x^i $. As the Taylor expansion and the Pade approximation are equal, $T(x) = N(x)/D(x)$,  which can be rewritten as $D(x)T(x) = N(x)$ and then expanded as $(1 + \displaystyle\sum_{i = 0}^{q} b_i * x^i) * \displaystyle\sum_{i = 0}^{p + q} c_{i} * x^i = \displaystyle\sum^{p}_{i = 0}a_i * x^i$. By setting the coefficients on each side of the equation equal to each other, we get the following system of equations [6]:
+Let the Taylor expansion of $f$ be $T(x) = \displaystyle\sum_{i = 0}^{p + q} c_{i} * x^i $. As the Taylor expansion and the Pade approximation are equal, $T(x) = N(x)/D(x)$,  which can be rewritten as $D(x)T(x) = N(x)$ and then expanded as $(1 + \displaystyle\sum_{i = 0}^{q} b_i * x^i) * \displaystyle\sum_{i = 0}^{p + q} c_{i} * x^i = \displaystyle\sum^{p}_{i = 0}a_i * x^i$. By setting the coefficients on each side of the equation equal to each other, we get the following system of equations [9]:
 
 $$a_0 = c_0b_0$$
 $$a_1 = c_1b_0 + c_0b_1$$
@@ -117,25 +120,25 @@ $$0 = c_{p+1}b_0 + c_pb_1 + ... + c_{p-q+1}b_q$$
 $$...$$
 $$0 = c_{p+q}b_0 + c_{p + q - 1}b_1 + ... + c_pb_q$$
 
-Thus, the Padé approximant can be derived from the Taylor expansion by first solving for the coefficients of $D(x)$ and then solving for the coefficients of $N(x)$ using the above linear system. The Padé approximant can be used in finite difference methods much like the Taylor series as a polynomial approximation of a rational function. Where the Padé approximant is superior to a Taylor Series is for functions with poles and/or functions that do not converge to infinity such a periodic or asymptotic functions, as the polynomial denominator allows a truncated Pade approximant to converge towards a constant, instead of approaching negative or positive infinity as with a truncated Taylor Series. However, the Pade approximant is computationally intensive due to the need to solve a linear system to obtain the approximant in addition to deriving the Taylor Series for a function.
+Thus, the Padé approximant can be derived from the Taylor expansion by first solving for the coefficients of $D(x)$ and then solving for the coefficients of $N(x)$ using the above linear system. The Padé approximant can be used in finite difference methods much like the Taylor series as a polynomial approximation of a rational function. Where the Padé approximant is superior to a Taylor Series is for functions with poles and/or functions that do not converge to infinity such a periodic or asymptotic functions, as the polynomial denominator allows a truncated Pade approximant to converge towards a constant, instead of approaching negative or positive infinity as with a truncated Taylor Series. However, the Pade approximant is computationally intensive due to the need to solve a linear system to obtain the approximant in addition to deriving the Taylor Series for a function [10].
 
 ![Source: ](https://github.com/AndyYu25/CX4640-f23-final/blob/main/Pade-MacLaurinSeries.png)
-
+[11]
 
 ## Spectral Methods
 
-Spectral methods are a class of methods developed to solve mixed initial—boundary value problems that represent the solution as a linear combination of selected basis functions [https://apps.dtic.mil/sti/pdfs/ADA056922.pdf, page 1]. As spectral methods are based around a linear combination of basis functions, they are based on the global behavior of the function, as opposed to the local behavior in evaluating a selection of nearby points that is used for finite difference approximation. 
+Spectral methods are a class of methods developed to solve mixed initial—boundary value problems that represent the solution as a linear combination of selected basis functions [12]. As spectral methods are based around a linear combination of basis functions, they are based on the global behavior of the function, as opposed to the local behavior in evaluating a selection of nearby points that is used for finite difference approximation. 
 
-The overall algorithmic approach to differentiating with spectral methods is as follows:[https://apps.dtic.mil/sti/pdfs/ADA267505.pdf, pg. 28]
+The overall algorithmic approach to differentiating with spectral methods is as follows:[13]
 
 1. Compute a polynomial interpolation from the function to a Chebyshev series.
 2. Compute Chebyshev series coefficients.
 3. Differentiate the Chebyshev series.
 4. Compute the interpolation from the Chebyshev series to a function.
 
-The reason to convert the function into a Chebyshev polynomial is because the Chebyshev polynomials can be manipulated in a stable manner using Fourier transforms due to their orthogonality [[1](https://apps.dtic.mil/sti/pdfs/ADA267505.pdf, pg. 1)]
+The reason to convert the function into a Chebyshev polynomial is because the Chebyshev polynomials can be manipulated in a stable manner using Fourier transforms due to their orthogonality [14]
 
-Computing the polynomial interpolation both to and from a Chebyshev polynomial of degree n is done by evaluating the input function at the Chebyshev nodes, or the points $t_k = -\cos(\frac{2k-1}{n} * \frac{\pi}{2}), k = 1, ..., n$, thus obtaining a set of n points $(t_1, f(t_1)), ..., (t_n, f(t_n))$ [https://apps.dtic.mil/sti/pdfs/ADA267505.pdf, pg. 2]. The Chebyshev series coefficients are computed by a fast cosine transform, and the differentiation of the Chebyshev polynomial follows the following formula:
+Computing the polynomial interpolation both to and from a Chebyshev polynomial of degree n is done by evaluating the input function at the Chebyshev nodes, or the points $t_k = -\cos(\frac{2k-1}{n} * \frac{\pi}{2}), k = 1, ..., n$, thus obtaining a set of n points $(t_1, f(t_1)), ..., (t_n, f(t_n))$ [15]. The Chebyshev series coefficients are computed by a fast cosine transform, and the differentiation of the Chebyshev polynomial follows the following formula:
 
 $$P_N'(x) = \displaystyle\sum_{k = 0}^{N - 2} d_k * T_k(x)$$
 $$d_k = \displaystyle\sum_{j = k + 1, j + k odd}^{N}j * a_j, 1 \leq k \leq N - 2$$
@@ -143,16 +146,24 @@ $$d_0 = 1/2 * \displaystyle\sum_{j = 1, j odd}^{N}j * a_j$$
 
 where T_k(x) is the Chebyshev polynomial of degree k.
 
-Spectral methods converge exponentially, so they have a higher order of accuracy compared to finite difference methods [https://apps.dtic.mil/sti/pdfs/ADA056922.pdf, page 2]. In addition, spectral algorithms, like Fast Fourier Transform, are heavily optimized, thus reducing the computing time for spectral methods. However, numerical differentiation by spectral methods is poorly conditioned, with a condition number proportional to $N^2$, so these methods are impractical for very high orders of accuracy [ibid, page 29].
+Spectral methods converge exponentially, so they have a higher order of accuracy compared to finite difference methods [16]. In addition, spectral algorithms, like Fast Fourier Transform, are heavily optimized, thus reducing the computing time for spectral methods. However, numerical differentiation by spectral methods is poorly conditioned, with a condition number proportional to $N^2$, so these methods are impractical for very high orders of accuracy [17].
 
 ## References
 
 1. https://drlvk.github.io/nm/section-differentiation-intro.html
-2. https://e6.ijs.si/~roman/files/tmp/M.Heath-SComputing/scientific-computing-michael-t-heath.pdf
-3. Ibid.
-4. Ibid.
-5. https://ntrs.nasa.gov/api/citations/19980007543/downloads/19980007543.pdf, pg 1
-6. ibid.
-7. http://www.scholarpedia.org/article/WENO_methods
+2. Heath, M. T. (2002). Scientific Computing (2nd ed.). McGraw-Hill. pg. 366
+3. Ibid, pg. 368.
+4. Ibid, pg. 369.
+5. Shu, C.-W. (1997). Essentially Non-Oscillatory and Weighted Essentially Non-Oscillatory Schemes for Hyperbolic Conservation Laws (pp. 1–78). National Air and Space Administration. pg. 1
+6. Ibid, pg. 2.
+7. Shu, C.-W. (2011, May 2). Weno Methods. Scholarpedia. http://www.scholarpedia.org/article/WENO_methods 
 8. Ibid.
-9. Bryngelson, S. H., & Freund, J. B. (2018). Global stability of flowing red blood cell trains. Physical Review Fluids, 3(7). https://doi.org/10.1103/physrevfluids.3.073101 
+9.  Brezinski, C. (2002). Computational Aspects of Linear Control (1st ed.). Kluwer Academic Publishers. pg. 96.
+10.  Ibid. pg. 80
+11.  Ibid. pg. 80
+12.  Gottlieb, D., & Orzag, S. A. (1977). Numerical Analysis of Spectral Methods. Office of Naval Research, page 1.
+13. Dutt, A., Gu, M., & Rokhlin, V. (1993). (rep.). Fast Algorithms for Polynomial Interpolation, Integration and Differentiation (pp. 1–38). New Haven, CT: Yale University, pg. 28.
+14. Ibid, pg. 1.
+15. Ibid, pg. 26.
+16. Gottlieb, D., & Orzag, S. A. (1977). Numerical Analysis of Spectral Methods. Office of Naval Research, page 1.
+17. Dutt, A., Gu, M., & Rokhlin, V. (1993). (rep.). Fast Algorithms for Polynomial Interpolation, Integration and Differentiation (pp. 1–38). New Haven, CT: Yale University, pg. 29.
