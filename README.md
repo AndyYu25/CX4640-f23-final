@@ -9,13 +9,17 @@ Title: Higher-Order Accurate Derivative Approximations
 
 In numerical analysis, higher order accurate derivative approximations are a class of methods and algorithms that estimate the derivatives of a given function with the values of the function and other information about the function to a high degree of accuracy. 
 
-## Introduction
+## Background 
 
 The definition of a derivative is as follows:
 
 $$f'(x) = \lim_{h \to 0 }\frac{f(x + h) - f(x)}{h}$$
 
 Derivative approximations aim to evaluate the derivative by utilizing this limit definition for some concrete value of h, known as the step size. Thus, accuracy in differentiation is expressed by degrees of accuracy where the derivative error $|e(h)|$ is bounded by some polynomial $C|h|^n$. If $|e(h)| \leq $C|h|^n$, then the approximation is $n$th-order accurate [1]. 
+
+## History
+
+Numerical differentiation is a relatively nascent field, where numerical differentiation 
 
 ## Finite Differences
 
@@ -67,9 +71,17 @@ For some $i$ such that $0 \leq i \leq n$, there are several degree k finite diff
 
 ### Weighted Essentially Non-Oscillatory Methods
 
-Instead of discarding all but the smoothest interpolation, Weighted Essentially Non-Oscillatory Methods consider all the possible interpolants and add them together as a weighted sum.  
+Instead of discarding all but the smoothest interpolation, Weighted Essentially Non-Oscillatory Methods consider all the possible interpolants and add them together as a weighted sum, where the weights are based on the smoothness of each interpolant.  
 
-THe primary advantage WENO/ENO schemes have over conventional finite difference methods is that WENO/ENO schemes will choose interpolants such that the function will not oscillate wildly around discontinuities. This makes the scheme advantageous for scenarios where discontinuities occur frequently, such as with fluid dynamics and traffic simulation.
+The primary advantage WENO/ENO schemes have over conventional finite difference methods is that WENO/ENO schemes will choose interpolants such that the function will not oscillate wildly around discontinuities. This makes the scheme advantageous for scenarios where discontinuities occur frequently, such as with fluid dynamics and traffic simulation.
+
+### WENO Example
+
+Consider a function $u(x_i)$ and a function approximation at the half-node $u_{i + 1/2}$. We use three different 3rd-order interpolations evaluating different points around the point $u_{i + 1/2}$:
+
+$$u_{i+\frac 12}^{(1)} = \frac{3}{8} u_{i-2} - \frac{5}{4} u_{i-1} + \frac{15}{8} u_{i}$$
+
+$$u_{i+\frac 12}^{(2)} = -\frac{1}{8} u_{i-1} + \frac{3}{4} u_{i} + \frac{3}{8} u_{i+1} $$
 
 ## Padé Approximations
 
@@ -92,7 +104,7 @@ $$0 = c_{p+1}b_0 + c_pb_1 + ... + c_{p-q+1}b_q$$
 $$...$$
 $$0 = c_{p+q}b_0 + c_{p + q - 1}b_1 + ... + c_pb_q$$
 
-Thus, the Padé approximant can be derived from the Taylor expansion by first solving for the coefficients of $D(x)$ and then solving for the coefficients of $N(x)$ using the above linear system. The Padé approximant can be used in finite difference methods much like the Taylor series as a polynomial approximation of a rational function. 
+Thus, the Padé approximant can be derived from the Taylor expansion by first solving for the coefficients of $D(x)$ and then solving for the coefficients of $N(x)$ using the above linear system. The Padé approximant can be used in finite difference methods much like the Taylor series as a polynomial approximation of a rational function. Where the Padé approximant is superior to a Taylor Series is for functions with poles and/or periodic functions, as the polynomial denominator allows the Pade approximant to converge towards a constant, instead of negative or positive infinity. 
 
 ## Spectral Methods
 
