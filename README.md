@@ -54,10 +54,15 @@ The original approximation $F(h)$ had an order of accuracy of p, while the Richa
 
 Essentially Non-Oscillatory (ENO) methods are a class of finite difference methods designed to approximate smooth solutions to functions with discontinuities while maintaining a high order of accuracy. The fundamental principle behind ENO schemes is selecting the smoothest interpolant in a given area [https://ntrs.nasa.gov/api/citations/19980007543/downloads/19980007543.pdf, pg 1].
 
-More formally, consider a discrete grid $a = x_{1/2} < x_{3/2} < ... < x_{n - 1/2} < x_{n + 1/2} = b$. For some $i$ such that $0 \leq i \leq n$, 
+More formally, consider a discrete grid $a = x_{1/2} < x_{3/2} < ... < x_{n - 1/2} < x_{n + 1/2} = b$ in the domain of a function $f$. 
 
+For some $i$ such that $0 \leq i \leq n$, there are several degree k finite difference approximations for f at the interval $\{x_{i - 1/2}, x_{i + 1/2}\}$. With an ENO scheme, the smoothest approximation at that interval is selected and utilized as the interpolant for. This process is repeated across all intervals between a and b.     
 
-THe primary advantage WENO/ENO schemes have over conventional finite difference methods is that WENO/ENO schemes will choose interpolants such that the function will not oscillate wildly around discontinuities.
+### Weighted Essentially Non-Oscillatory Methods
+
+Instead of discarding all but the smoothest interpolation, Weighted Essentially Non-Oscillatory Methods consider all the possible interpolants and add them together as a weighted sum.  
+
+THe primary advantage WENO/ENO schemes have over conventional finite difference methods is that WENO/ENO schemes will choose interpolants such that the function will not oscillate wildly around discontinuities. This makes the scheme advantageous for scenarios where discontinuities occur frequently, such as with fluid dynamics and traffic simulation.
 
 
 
