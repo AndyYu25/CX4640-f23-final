@@ -8,7 +8,7 @@ The definition of a derivative is as follows:
 
 $$f'(x) = \lim_{h \to 0 }\frac{f(x + h) - f(x)}{h}$$
 
-Derivative approximations aim to evaluate the derivative by utilizing this limit definition for some concrete value of h, known as the step size. Thus, accuracy in differentiation is expressed by degrees of accuracy where the derivative error $|e(h)|$ is bounded by some polynomial $C|h|^n$. If $|e(h)| \leq $C|h|^n$, then the approximation is nth-order accurate [1]. 
+Derivative approximations aim to evaluate the derivative by utilizing this limit definition for some concrete value of h, known as the step size. Thus, accuracy in differentiation is expressed by degrees of accuracy where the derivative error $|e(h)|$ is bounded by some polynomial $C|h|^n$. If $|e(h)| \leq $C|h|^n$, then the approximation is $n$th-order accurate [1]. 
 
 ## Finite Differences
 
@@ -49,6 +49,30 @@ By solving the linear system for $a_0$, we obtain the following formula[4]:
 $$F(0) = a_0 = F(h) + \frac{F(h) - F(h/q)}{q^{-p} - 1} + O(h^r)$$
 
 The original approximation $F(h)$ had an order of accuracy of p, while the Richardson extrapolation has an order of accuracy of r, thus resulting in a higher order of accuracy. Therefore, utilizing the Richardson extrapolation can result in higher order approximaitons from lower-order finite differences. 
+
+## Essentially Non-Oscillatory Methods
+
+Essentially Non-Oscillatory (ENO) methods are a class of finite difference methods designed to approximate smooth solutions to functions with discontinuities while maintaining a high order of accuracy. The fundamental principle behind ENO schemes is selecting the smoothest interpolant in a given area [https://ntrs.nasa.gov/api/citations/19980007543/downloads/19980007543.pdf, pg 1].
+
+More formally, consider a discrete grid $a = x_{1/2} < x_{3/2} < ... < x_{n - 1/2} < x_{n + 1/2} = b$. For some $i$ such that $0 \leq i \leq n$, 
+
+
+THe primary advantage WENO/ENO schemes have over conventional finite difference methods is that WENO/ENO schemes will choose interpolants such that the function will not oscillate wildly around discontinuities.
+
+
+
+## Padé Approximations
+
+Padé approximations are rational functions that are a ratio of polynomials such that their power series agrees agrees with the power series of the function they are agreeing with. Given a rational function $f$, the Padé approximation of $f$ is following:
+$$[p/q]_f(x) = N(x)/D(x)$$
+
+such that the degree of N $\leq p$, the degree of D $\leq Q$, and $N(x) - f(x)D(x) = O(x^{p + q + 1}), (x \to 0)$ [5]. Let
+
+
+
+
+
+## Spectral Methods
 
 ## What your article should not contain
 
@@ -163,6 +187,6 @@ From the `topics.md` document:
 2. https://e6.ijs.si/~roman/files/tmp/M.Heath-SComputing/scientific-computing-michael-t-heath.pdf
 3. Ibid.
 4. Ibid.
-5. Like
+5. https://link.springer.com/book/10.1007/978-1-4613-0261-2
 6. This
 7. Bryngelson, S. H., & Freund, J. B. (2018). Global stability of flowing red blood cell trains. Physical Review Fluids, 3(7). https://doi.org/10.1103/physrevfluids.3.073101 
