@@ -78,8 +78,13 @@ THe primary advantage WENO/ENO schemes have over conventional finite difference 
 Padé approximations are rational functions that are a ratio of polynomials such that their power series agrees agrees with the power series of the function they are agreeing with. Given a rational function $f$, the Padé approximation of $f$ is following:
 $$[p/q]_f(x) = N(x)/D(x)$$
 
-such that the degree of N $\leq p$, the degree of D $\leq Q$, and $N(x) - f(x)D(x) = O(x^{p + q + 1}), (x \to 0)$ [5]. Let
+such that the degree of N $\leq p$, the degree of D $\leq Q$, and $N(x) - f(x)D(x) = O(x^{p + q + 1}), (x \to 0)$ [5]. $N(x)$ and $D(x)$ can also be expressed as follows:
 
+$$N(x) = \sum^{p}_{i = 0}a_i * x^i$$
+
+$$D(x) = 1 + \sum^{q}_{i = 0}b_i * x^i$$
+
+Let the Taylor expansion of $f$ be $T(x) = \sum^{p + q}_{i = 0}c_i * x^i$. As the Taylor expansion and the Pade approximation are equal, $T(x) = N(x)/D(x)$,  which can be rewritten as $D(x)T(x) = N(x)$ and then expanded as $(1 + \sum^{q}_{i = 0}b_i * x^i)$.
 
 
 ## Spectral Methods
