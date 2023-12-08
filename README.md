@@ -84,7 +84,7 @@ $$N(x) = \sum^{p}_{i = 0}a_i * x^i$$
 
 $$D(x) = 1 + \sum^{q}_{i = 0}b_i * x^i$$
 
-Let the Taylor expansion of $f$ be $T(x) = \sum^{p + q}{i = 0} c_{i} * x^i $. As the Taylor expansion and the Pade approximation are equal, $T(x) = N(x)/D(x)$,  which can be rewritten as $D(x)T(x) = N(x)$ and then expanded as $(1 + \sum^{q}_{i = 0}b_i * x^i) * \sum^{p + q}_{i = 0} c_{i} * x^i = \sum^{p}_{i = 0}a_i * x^i$. By setting the coefficients on each side of the equation equal to each other, we get the following system of equations [6]:
+Let the Taylor expansion of $f$ be $T(x) = \sum_{i = 0}^{p + q} c_{i} * x^i $. As the Taylor expansion and the Pade approximation are equal, $T(x) = N(x)/D(x)$,  which can be rewritten as $D(x)T(x) = N(x)$ and then expanded as $(1 + \sum_{i = 0}^{q} b_i * x^i) * \sum{i = 0}^{p + q} c_{i} * x^i = \sum^{p}_{i = 0}a_i * x^i$. By setting the coefficients on each side of the equation equal to each other, we get the following system of equations [6]:
 
 $$a_0 = c_0b_0$$
 $$a_1 = c_1b_0 + c_0b_1$$
