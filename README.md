@@ -83,6 +83,10 @@ $$u_{i+\frac 12}^{(1)} = \frac{3}{8} u_{i-2} - \frac{5}{4} u_{i-1} + \frac{15}{8
 
 $$u_{i+\frac 12}^{(2)} = -\frac{1}{8} u_{i-1} + \frac{3}{4} u_{i} + \frac{3}{8} u_{i+1} $$
 
+$$u_{i+\frac 12}^{(3)} = \frac{3}{8} u_{i} + \frac{3}{4} u_{i+1} - \frac{1}{8} u_{i+2}$$
+
+The WENO scheme 
+
 ## Padé Approximations
 
 Padé approximations are rational functions that are a ratio of polynomials such that their power series agrees agrees with the power series of the function they are agreeing with. Given a rational function $f$, the Padé approximation of $f$ is following:
@@ -104,7 +108,11 @@ $$0 = c_{p+1}b_0 + c_pb_1 + ... + c_{p-q+1}b_q$$
 $$...$$
 $$0 = c_{p+q}b_0 + c_{p + q - 1}b_1 + ... + c_pb_q$$
 
-Thus, the Padé approximant can be derived from the Taylor expansion by first solving for the coefficients of $D(x)$ and then solving for the coefficients of $N(x)$ using the above linear system. The Padé approximant can be used in finite difference methods much like the Taylor series as a polynomial approximation of a rational function. Where the Padé approximant is superior to a Taylor Series is for functions with poles and/or periodic functions, as the polynomial denominator allows the Pade approximant to converge towards a constant, instead of negative or positive infinity. 
+Thus, the Padé approximant can be derived from the Taylor expansion by first solving for the coefficients of $D(x)$ and then solving for the coefficients of $N(x)$ using the above linear system. The Padé approximant can be used in finite difference methods much like the Taylor series as a polynomial approximation of a rational function. Where the Padé approximant is superior to a Taylor Series is for functions with poles and/or periodic functions, as the polynomial denominator allows a truncated Pade approximant to converge towards a constant, instead of approaching negative or positive infinity as with a truncated Taylor Series. 
+
+![alt text](https://github.com/AndyYu25/CX4640-f23-final/blob/main/Pade-MacLaurinSeries.png)
+
+
 
 ## Spectral Methods
 
