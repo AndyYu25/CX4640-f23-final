@@ -9,6 +9,14 @@ Title: Higher-Order Accurate Derivative Approximations
 
 In numerical analysis, higher order accurate derivative approximations are a class of methods and algorithms that estimate the derivatives of a given function with the values of the function and other information about the function to a high degree of accuracy. 
 
+# Table of Contents
+1. [Background](#background)
+2. [Finite Differences](#finite-differences)
+3. [Richardson Extrapolation](#richardson-extrapolation)
+4. [Essentially Non-Oscillatory Methods](#Essentially-Non-Oscillatory-Methods)
+5. [Weighted Essentially Non-Oscillatory Methods](#Weighted-Essentially-Non-Oscillatory-Methods)
+
+
 ## Background 
 
 The definition of a derivative is as follows:
@@ -16,10 +24,6 @@ The definition of a derivative is as follows:
 $$f'(x) = \lim_{h \to 0 }\frac{f(x + h) - f(x)}{h}$$
 
 Derivative approximations aim to evaluate the derivative by utilizing this limit definition for some concrete value of h, known as the step size. Thus, accuracy in differentiation is expressed by degrees of accuracy where the derivative error $|e(h)|$ is bounded by some polynomial $C|h|^n$. If $|e(h)| \leq $C|h|^n$, then the approximation is $n$th-order accurate [1]. 
-
-## History
-
-Numerical differentiation is a relatively nascent field, where numerical differentiation 
 
 ## Finite Differences
 
@@ -63,7 +67,7 @@ The original approximation $F(h)$ had an order of accuracy of p, while the Richa
 
 ## Essentially Non-Oscillatory Methods
 
-Essentially Non-Oscillatory (ENO) methods are a class of finite difference methods designed to approximate smooth solutions to functions with discontinuities while maintaining a high order of accuracy. The fundamental principle behind ENO schemes is selecting the smoothest interpolant in a given area [https://ntrs.nasa.gov/api/citations/19980007543/downloads/19980007543.pdf, pg 1].
+Essentially Non-Oscillatory (ENO) methods are a class of finite difference methods designed to approximate smooth solutions to functions with discontinuities while maintaining a high order of accuracy. The fundamental principle behind ENO schemes is selecting the smoothest interpolant in a given area [5].
 
 More formally, consider a discrete grid $a = x_{1/2} < x_{3/2} < ... < x_{n - 1/2} < x_{n + 1/2} = b$ in the domain of a function $f$. 
 
@@ -71,13 +75,13 @@ For some $i$ such that $0 \leq i \leq n$, there are several degree k finite diff
 
 ### Weighted Essentially Non-Oscillatory Methods
 
-Instead of discarding all but the smoothest interpolation, Weighted Essentially Non-Oscillatory Methods consider all the possible interpolants and add them together as a weighted sum, where the weights are based on the smoothness of each interpolant.  
+Instead of discarding all but the smoothest interpolation, Weighted Essentially Non-Oscillatory Methods consider all the possible interpolants and add them together as a weighted sum, where the weights sum up to 1 and are based on the smoothness of each interpolant [6].  
 
 The primary advantage WENO/ENO schemes have over conventional finite difference methods is that WENO/ENO schemes will choose interpolants such that the function will not oscillate wildly around discontinuities. This makes the scheme advantageous for scenarios where discontinuities occur frequently, such as with fluid dynamics and traffic simulation.
 
 ### WENO Example
 
-Consider a function $u(x_i)$ and a function approximation at the half-node $u_{i + 1/2}$. We use three different 3rd-order interpolations evaluating different points around the point $u_{i + 1/2}$:
+Consider a function $u(x_i)$ and a function approximation at the half-node $u_{i + 1/2}$. We use three different 3rd-order interpolations evaluating different points around the point $u_{i + 1/2}$[7]:
 
 $$u_{i+\frac 12}^{(1)} = \frac{3}{8} u_{i-2} - \frac{5}{4} u_{i-1} + \frac{15}{8} u_{i}$$
 
@@ -85,7 +89,12 @@ $$u_{i+\frac 12}^{(2)} = -\frac{1}{8} u_{i-1} + \frac{3}{4} u_{i} + \frac{3}{8} 
 
 $$u_{i+\frac 12}^{(3)} = \frac{3}{8} u_{i} + \frac{3}{4} u_{i+1} - \frac{1}{8} u_{i+2}$$
 
-The WENO scheme 
+The WENO scheme has $u_{i+\frac 12}$ equal the weighted sum of all three interpolants as follows:
+
+$$u_{i+\frac 12} = \gamma_1 u^{(1)}_{i+\frac 12} + \gamma_2 u^{(2)}_{i+\frac 12}
++ \gamma_3 u^{(3)}_{i+\frac 12}$$
+
+where $\gamma_1 + \gamma_2 + \gamma_3 = 1$ and the linear coeffcients are inversely proportional to the smoothness of the scheme. In this case, the coefficients are $\gamma_1 = 1/16, \gamma_2 = 5/8, and \gamma_3 = 5/16$, and the weighted sum is 5th-order accurate [8].
 
 ## Padé Approximations
 
@@ -108,124 +117,33 @@ $$0 = c_{p+1}b_0 + c_pb_1 + ... + c_{p-q+1}b_q$$
 $$...$$
 $$0 = c_{p+q}b_0 + c_{p + q - 1}b_1 + ... + c_pb_q$$
 
-Thus, the Padé approximant can be derived from the Taylor expansion by first solving for the coefficients of $D(x)$ and then solving for the coefficients of $N(x)$ using the above linear system. The Padé approximant can be used in finite difference methods much like the Taylor series as a polynomial approximation of a rational function. Where the Padé approximant is superior to a Taylor Series is for functions with poles and/or periodic functions, as the polynomial denominator allows a truncated Pade approximant to converge towards a constant, instead of approaching negative or positive infinity as with a truncated Taylor Series. 
+Thus, the Padé approximant can be derived from the Taylor expansion by first solving for the coefficients of $D(x)$ and then solving for the coefficients of $N(x)$ using the above linear system. The Padé approximant can be used in finite difference methods much like the Taylor series as a polynomial approximation of a rational function. Where the Padé approximant is superior to a Taylor Series is for functions with poles and/or functions that do not converge to infinity such a periodic or asymptotic functions, as the polynomial denominator allows a truncated Pade approximant to converge towards a constant, instead of approaching negative or positive infinity as with a truncated Taylor Series. However, the Pade approximant is computationally intensive due to the need to solve a linear system to obtain the approximant in addition to deriving the Taylor Series for a function.
 
-![alt text](https://github.com/AndyYu25/CX4640-f23-final/blob/main/Pade-MacLaurinSeries.png)
-
+![Source: ](https://github.com/AndyYu25/CX4640-f23-final/blob/main/Pade-MacLaurinSeries.png)
 
 
 ## Spectral Methods
 
-Spectral methods are a class of methods developed to solve mixed initial—boundary value problems that represent the solution as a linear combination of selected basis functions [https://apps.dtic.mil/sti/pdfs/ADA056922.pdf, page 1]. 
+Spectral methods are a class of methods developed to solve mixed initial—boundary value problems that represent the solution as a linear combination of selected basis functions [https://apps.dtic.mil/sti/pdfs/ADA056922.pdf, page 1]. As spectral methods are based around a linear combination of basis functions, they are based on the global behavior of the function, as opposed to the local behavior in evaluating a selection of nearby points that is used for finite difference approximation. 
 
+The overall algorithmic approach to differentiating with spectral methods is as follows:[https://apps.dtic.mil/sti/pdfs/ADA267505.pdf, pg. 28]
 
+1. Compute a polynomial interpolation from the function to a Chebyshev series.
+2. Compute Chebyshev series coefficients.
+3. Differentiate the Chebyshev series.
+4. Compute the interpolation from the Chebyshev series to a function.
 
+The reason to convert the function into a Chebyshev polynomial is because the Chebyshev polynomials can be manipulated in a stable manner using Fourier transforms due to their orthogonality [[1](https://apps.dtic.mil/sti/pdfs/ADA267505.pdf, pg. 1)]
 
+Computing the polynomial interpolation both to and from a Chebyshev polynomial of degree n is done by evaluating the input function at the Chebyshev nodes, or the points $t_k = -\cos(\frac{2k-1}{n} * \frac{\pi}{2}), k = 1, ..., n$, thus obtaining a set of n points $(t_1, f(t_1)), ..., (t_n, f(t_n))$ [https://apps.dtic.mil/sti/pdfs/ADA267505.pdf, pg. 2]. The Chebyshev series coefficients are computed by a fast cosine transform, and the differentiation of the Chebyshev polynomial follows the following formula:
 
-Spectral methods converge exponentially, so they have a higher order of accuracy compared to finite difference methods [https://apps.dtic.mil/sti/pdfs/ADA056922.pdf, page 2].
+$$P_N'(x) = \displaystyle\sum_{k = 0}^{N - 2} d_k * T_k(x)$$
+$$d_k = \displaystyle\sum_{j = k + 1, j + k odd}^{N}j * a_j, 1 \leq k \leq N - 2$$
+$$d_0 = 1/2 * \displaystyle\sum_{j = 1, j odd}^{N}j * a_j$$
 
-## Finite Element Methods
+where T_k(x) is the Chebyshev polynomial of degree k.
 
-
-
-## What your article should not contain
-
-* Videos (But `.gif` is acceptable! Though __do not__ upload anything that is more than 25MB large. Github will reject it.)
-* Grammar or spelling errors
-* Plagiarism. I will check your documents (it's easy to do this since they will all be plain text). If you plagiarize, it will be obvious. 
-
-## Some things you are allowed to do but might not be obvious
-
-* You _are_ allowed to use external links! You are also encouraged to cite other books and papers (see below for that).
-* You _are_ allowed to use HTML within your Markdown document, so long as it renders appropriately within Github. 
-You should check that it does render appropriately by creating a private GitHub repository for your article and ensuring it works as you expect! 
-
-## How to submit
-
-Submit your document formatted as a `.zip` (if you included images) or `.md` (if not) to Canvas.
-
-__Be sure to create a (private) repository on your own Github profile to make sure that your article shows up as you intended!__
-
-
-## Formatting 
-
-Use "Github" flavored markdown, which is a slightly more powerful version of the usual markdown. The file extension is usually `.md`.
-You can include equations in the usual LaTeX-like way, $Ax=b$, or like this
-$$Ax=b.$$
-You can view the source of this markdown document by clicking the edit/raw button on its source, it's also at [this link](https://raw.githubusercontent.com/numerical-analysis-f23/project-help/main/readme.md).
-
-![](images.png)
-
-You can also include images like this (notice that the image file is in the repository)! 
-
-![](example_gif.gif)
-
-You can also include `.gif`s!
-
-Pseudocode is included via triple backticks, like this
-```
-Pseudocode
-Can
-Go 
-Here
-```
-and inline code can `go like this`.
-
-Here are some links for Github-flavored markdown syntax that could be helpful:
-* https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
-* https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
-
-## Length
-
-The length of your article is flexible. 
-However, I understand it is useful to put some bounds on things.
-
-Here are some example articles that are probably too short
-* http://www.scholarpedia.org/article/Fixed_point
-* http://www.scholarpedia.org/article/Normal_forms
-* https://en.wikipedia.org/wiki/Numerical_method
-
-Here is one that [is probably too long](https://en.wikipedia.org/wiki/Floating-point_arithmetic) for this project, though I will certainly not mark you down if you write something this comprehensive!
-
-## Audience
-
-Write your article such that it could be understood by a student who is about to take this course, but hasn't started yet (you just a few months ago!).
-For example, [here is one](http://www.scholarpedia.org/article/WENO_methods) that is presented in a way that is likely too complex for your mock audience. 
-
-## How you will be graded
-
-From the `topics.md` document: 
-> Some of these topics may be easier or harder to write about depending on at what length they were discussed in class. Some of these topics were not discussed in class, but are very closely related to what was discussed in class. This will be taken into account while grading, with somewhat fewer details and less depth or "strictness" expected for more complex or less-discussed topics. In this vein, a uniformly knowledgeable person would find all of these topics equally challenging (or easy!). In practice, I recommend prioritizing topics that seem interesting to you (or suggest your own, if you like!).
-
-### Rubric
-
-* 60% __Technical correctness and completeness.__ Get full points here by
-	* Not saying things that are technically incorrect. 
-	* Completeness is a bit nebulous here. You do not need to include _everything_ you could possibly discuss about your topic (that could be an entire textbook in some cases!). 
-	Instead, include a combination of breadth and depth that is in line with some of the Wikipedia/Scholarpedia examples provided. 
-	* In many cases you should include some equations, pseudocode, and examples to explain your topic, though there are a few exceptions to this. Use your own discretion.
-	* Not mentioning a method that is critical to your topic could result in deducted points, especially if that topic was discussed at length in class.
-
-* 20% __Clarity.__ Get full points here by
-	* Not including topics that are irrelevant to yours (at least not without an explanation of why they are there!). 
-	* Do include references to topics, via links and proper references, that are relevant to yours. 
-	* Use hyperlinks to navigate around your document (for example, [like this](https://stackoverflow.com/questions/2822089/how-to-link-to-part-of-the-same-document-in-markdown)). 
-	* Make your document intellectually accessible to your mock audience (discussed above). 
-	* No nonsequiturs.
-	* Use proper English grammar. 
-	* No spelling mistakes.
-
-* 10% __Presentation.__ Get full points here by
-	* Using high-quality graphics (if you use graphics). 
-	* Consistent style.
-  	* Consistent referencing style (e.g., APA formatting).
-	* Proper use of tables, figures, lists (bulleted and enumerated), etc.
-	* _Make it something you would be proud to show to your colleagues!_
-
-* 10% __Organization.__ Get full points here by 
-	* Separate and organize sections and subsections appropriately. 
-	* Include a table of contents
-	* References and URL refs. in an appropriate location.
+Spectral methods converge exponentially, so they have a higher order of accuracy compared to finite difference methods [https://apps.dtic.mil/sti/pdfs/ADA056922.pdf, page 2]. In addition, spectral algorithms, like Fast Fourier Transform, are heavily optimized, thus reducing the computing time for spectral methods. However, numerical differentiation by spectral methods is poorly conditioned, with a condition number proportional to $N^2$, so these methods are impractical for very high orders of accuracy [ibid, page 29].
 
 ## References
 
@@ -233,7 +151,8 @@ From the `topics.md` document:
 2. https://e6.ijs.si/~roman/files/tmp/M.Heath-SComputing/scientific-computing-michael-t-heath.pdf
 3. Ibid.
 4. Ibid.
-5. https://link.springer.com/book/10.1007/978-1-4613-0261-2
-6. ibid
-7. This
-8. Bryngelson, S. H., & Freund, J. B. (2018). Global stability of flowing red blood cell trains. Physical Review Fluids, 3(7). https://doi.org/10.1103/physrevfluids.3.073101 
+5. https://ntrs.nasa.gov/api/citations/19980007543/downloads/19980007543.pdf, pg 1
+6. ibid.
+7. http://www.scholarpedia.org/article/WENO_methods
+8. Ibid.
+9. Bryngelson, S. H., & Freund, J. B. (2018). Global stability of flowing red blood cell trains. Physical Review Fluids, 3(7). https://doi.org/10.1103/physrevfluids.3.073101 
