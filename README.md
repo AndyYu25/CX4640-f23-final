@@ -113,11 +113,17 @@ $$D(x) = 1 + \sum^{q}_{i = 0}b_i * x^i$$
 Let the Taylor expansion of $f$ be $T(x) = \displaystyle\sum_{i = 0}^{p + q} c_{i} * x^i $. As the Taylor expansion and the Pade approximation are equal, $T(x) = N(x)/D(x)$,  which can be rewritten as $D(x)T(x) = N(x)$ and then expanded as $(1 + \displaystyle\sum_{i = 0}^{q} b_i * x^i) * \displaystyle\sum_{i = 0}^{p + q} c_{i} * x^i = \displaystyle\sum^{p}_{i = 0}a_i * x^i$. By setting the coefficients on each side of the equation equal to each other, we get the following system of equations [9]:
 
 $$a_0 = c_0b_0$$
+
 $$a_1 = c_1b_0 + c_0b_1$$
+
 $$...$$
+
 $$a_p = c_pb_0 + c_{p - 1}b_1 + ... + c_{p-q}b_q$$
+
 $$0 = c_{p+1}b_0 + c_pb_1 + ... + c_{p-q+1}b_q$$
+
 $$...$$
+
 $$0 = c_{p+q}b_0 + c_{p + q - 1}b_1 + ... + c_pb_q$$
 
 Thus, the Padé approximant can be derived from the Taylor expansion by first solving for the coefficients of $D(x)$ and then solving for the coefficients of $N(x)$ using the above linear system. The Padé approximant can be used in finite difference methods much like the Taylor series as a polynomial approximation of a rational function. Where the Padé approximant is superior to a Taylor Series is for functions with poles and/or functions that do not converge to infinity such a periodic or asymptotic functions, as the polynomial denominator allows a truncated Pade approximant to converge towards a constant, instead of approaching negative or positive infinity as with a truncated Taylor Series. However, the Pade approximant is computationally intensive due to the need to solve a linear system to obtain the approximant in addition to deriving the Taylor Series for a function [10].
