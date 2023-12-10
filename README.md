@@ -94,8 +94,7 @@ $$u_{i+\frac 12}^{(3)} = \frac{3}{8} u_{i} + \frac{3}{4} u_{i+1} - \frac{1}{8} u
 
 The WENO scheme has $u_{i+\frac 12}$ equal the weighted sum of all three interpolants as follows:
 
-$$u_{i+\frac 12} = \gamma_1 u^{(1)}_{i+\frac 12} + \gamma_2 u^{(2)}_{i+\frac 12}
-+ \gamma_3 u^{(3)}_{i+\frac 12}$$
+$$u_{i+\frac 12} = \gamma_1 u_{i+\frac 12}^{(1)} + \gamma_2 u_{i+\frac 12}^{(2)} + \gamma_3 u^{(3)}_{i+\frac 12}$$
 
 where $\gamma_1 + \gamma_2 + \gamma_3 = 1$ and the linear coeffcients are inversely proportional to the smoothness of the scheme. In this case, the coefficients are $\gamma_1 = 1/16, \gamma_2 = 5/8, and \gamma_3 = 5/16$, and the weighted sum is 5th-order accurate [8].
 
