@@ -155,7 +155,7 @@ Spectral methods converge exponentially, so they have a higher order of accuracy
 
 ## References
 
-1. https://drlvk.github.io/nm/section-differentiation-intro.html
+1. Kovalev, L. (2021). Definition of Derivative and the Order of Error. Numerical Methods with Programming. Syracuse University. https://drlvk.github.io/nm/section-differentiation-intro.html 
 2. Heath, M. T. (2002). Scientific Computing (2nd ed.). McGraw-Hill. pg. 366
 3. Ibid, pg. 368.
 4. Ibid, pg. 369.
