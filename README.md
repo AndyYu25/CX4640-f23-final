@@ -149,7 +149,7 @@ $$P_N'(x) = \displaystyle\sum_{k = 0}^{N - 2} d_k * T_k(x)$$
 $$d_k = \displaystyle\sum_{j = k + 1, j + k odd}^{N}j * a_j, 1 \leq k \leq N - 2$$
 $$d_0 = 1/2 * \displaystyle\sum_{j = 1, j odd}^{N}j * a_j$$
 
-where T_k(x) is the Chebyshev polynomial of degree k.
+where $T_k(x)$ is the Chebyshev polynomial of degree k.
 
 Spectral methods converge exponentially, so they have a higher order of accuracy compared to finite difference methods [16]. In addition, spectral algorithms, like Fast Fourier Transform, are heavily optimized, thus reducing the computing time for spectral methods. However, numerical differentiation by spectral methods is poorly conditioned, with a condition number proportional to $N^2$, so these methods are impractical for very high orders of accuracy [17].
 
