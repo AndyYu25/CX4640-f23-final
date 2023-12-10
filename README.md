@@ -146,7 +146,9 @@ The reason to convert the function into a Chebyshev polynomial is because the Ch
 Computing the polynomial interpolation both to and from a Chebyshev polynomial of degree n is done by evaluating the input function at the Chebyshev nodes, or the points $t_k = -\cos(\frac{2k-1}{n} * \frac{\pi}{2}), k = 1, ..., n$, thus obtaining a set of n points $(t_1, f(t_1)), ..., (t_n, f(t_n))$ [15]. The Chebyshev series coefficients are computed by a fast cosine transform, and the differentiation of the Chebyshev polynomial follows the following formula:
 
 $$P_N'(x) = \displaystyle\sum_{k = 0}^{N - 2} d_k * T_k(x)$$
+
 $$d_k = \displaystyle\sum_{j = k + 1, j + k odd}^{N}j * a_j, 1 \leq k \leq N - 2$$
+
 $$d_0 = 1/2 * \displaystyle\sum_{j = 1, j odd}^{N}j * a_j$$
 
 where $T_k(x)$ is the Chebyshev polynomial of degree k.
