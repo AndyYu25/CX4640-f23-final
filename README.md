@@ -26,7 +26,7 @@ The definition of a derivative is as follows:
 
 $$f'(x) = \lim_{h \to 0 }\frac{f(x + h) - f(x)}{h}$$
 
-Derivative approximations aim to evaluate the derivative by utilizing this limit definition for some concrete value of h, known as the step size. Thus, accuracy in differentiation is expressed by degrees of accuracy where the derivative error $|e(h)|$ is bounded by some polynomial $C|h|^n$. If $|e(h)| \leq $C|h|^n$, then the approximation is $n$ th-order accurate [1]. 
+Derivative approximations aim to evaluate the derivative by utilizing this limit definition for some concrete value of h, known as the step size. Thus, accuracy in differentiation is expressed by degrees of accuracy where the derivative error $|e(h)|$ is bounded by some polynomial $C|h|^n$. If $|e(h)| \leq C|h|^n$, then the approximation is $n$ th-order accurate [1]. 
 
 ## Finite Differences
 
