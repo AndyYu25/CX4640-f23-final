@@ -1,5 +1,6 @@
 ```
 ---
+CX 4640 (Numerical Analysis) Final Project
 Name: Andy Yu
 Topic: 35
 Title: Higher-Order Accurate Derivative Approximations
